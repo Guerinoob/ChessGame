@@ -21,7 +21,7 @@ public class AppFx extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("game"), 1280, 720);
         stage.setScene(scene);
         stage.show();
     }
@@ -32,6 +32,7 @@ public class AppFx extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppFx.class.getClassLoader().getResource("fxml/"+fxml + ".fxml"));
+        fxmlLoader.getController();
         return fxmlLoader.load();
     }
 

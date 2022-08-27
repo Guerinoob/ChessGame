@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chessgame.controller.GameController">
+   <top>
+      <Label prefHeight="50.0" text="Chessgame" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Arial" size="32.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <StackPane fx:id="boardContainer" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
