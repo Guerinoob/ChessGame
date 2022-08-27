@@ -1,4 +1,4 @@
-package chessgame.chessgame;
+package chessgame.application;
 
 import java.io.IOException;
 
@@ -26,12 +26,12 @@ public class AppFx extends Application {
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppFx.class.getClassLoader().getResource("fxml/"+fxml + ".fxml"));
         return fxmlLoader.load();
     }
 

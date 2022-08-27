@@ -1,7 +1,8 @@
-package chessgame.chessgame;
+package chessgame.controller;
 
 import java.io.IOException;
 
+import chessgame.application.AppFx;
 import javafx.fxml.FXML;
 
 public class PrimaryController {
