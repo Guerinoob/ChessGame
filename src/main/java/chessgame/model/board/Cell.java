@@ -1,22 +1,20 @@
 package chessgame.model.board;
 
-public class Cell {
-	private Color color;
-	
+import chessgame.model.pieces.Piece;
+
+public class Cell {	
 	private int row;
 	
 	private int column;
 	
 	private Piece piece;
 	
-	public Cell(int row, int column) {
-		if((row + column) % 2 == 0)
-			color = Color.WHITE;
-		else
-			color = Color.BLACK;
-		
+	private Board board;
+	
+	public Cell(int row, int column, Board board) {
 		this.row = row;
 		this.column = column;
+		this.board = board;
 		piece = null;
 	}
 	
@@ -28,12 +26,12 @@ public class Cell {
 		return column;
 	}
 	
-	public Color getColor() {
-		return color;
-	}
-	
 	public Piece getPiece() {
 		return piece;
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 	
 	/**

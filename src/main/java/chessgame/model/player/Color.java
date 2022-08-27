@@ -1,4 +1,4 @@
-package chessgame.model.board;
+package chessgame.model.player;
 
 public enum Color {
 	
