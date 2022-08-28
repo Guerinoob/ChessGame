@@ -1,6 +1,7 @@
 package chessgame.application;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +21,9 @@ public class AppFx extends Application {
 	}
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, URISyntaxException {
         scene = new Scene(loadFXML("game"), 1280, 720);
+        scene.getStylesheets().add(AppFx.class.getClassLoader().getResource("css/style.css").toURI().toString());
         stage.setScene(scene);
         stage.show();
     }

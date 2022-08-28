@@ -4,9 +4,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import chessgame.model.board.Board;
+import chessgame.model.game.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -23,7 +25,7 @@ public class GameController implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		boardGrid = new GridPane();
 		
-		final var board = new Board();
+		final var game = new Game();
 
 		for(int i = 0; i < Board.LENGTH; i++) {
 			for(int j = 0; j < Board.LENGTH; j++) {
@@ -34,9 +36,17 @@ public class GameController implements Initializable {
 				else
 					pane.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
 				
+				final var piece = game.getBoard().getCell(i, j).getPiece();
+				
+				if(piece != null) {
+					final var label = new Label(""+piece.getType().name().substring(0, 2));
+					label.getStyleClass().addAll("piece", piece.getColor().name().toLowerCase());
+					pane.getChildren().add(label);
+				}
+				
 				pane.setPrefSize(75, 75);
 				
-				boardGrid.add(pane, i, j);
+				boardGrid.add(pane, j, i);
 			}
 		}
 		
