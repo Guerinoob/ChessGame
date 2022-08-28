@@ -15,4 +15,17 @@ public class Board {
 		}
 		
 	}
+	
+	public Cell[][] getCells() {
+		return cells;
+	}
+	
+	public Cell getCell(int row, int column) {
+		try {
+			return cells[row][column];
+		} catch(ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
