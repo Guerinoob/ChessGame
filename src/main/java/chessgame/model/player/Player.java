@@ -5,9 +5,11 @@ import java.util.List;
 import chessgame.model.pieces.Piece;
 
 public class Player {
-	private Color color;
+	private final Color color;
 	
-	private List<Piece> pieces;
+	private final List<Piece> pieces;
+	
+	private int timeLeft;
 	
 	public Player(Color color, List<Piece> pieces) {
 		this.pieces = pieces;
@@ -20,5 +22,13 @@ public class Player {
 	
 	public List<Piece> getPieces() {
 		return pieces;
+	}
+	
+	public int getTimeLeft() {
+		return timeLeft;
+	}
+	
+	public void addTime(int seconds) {
+		timeLeft += seconds;
 	}
 }

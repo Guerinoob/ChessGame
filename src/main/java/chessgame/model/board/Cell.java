@@ -3,13 +3,13 @@ package chessgame.model.board;
 import chessgame.model.pieces.Piece;
 
 public class Cell {	
-	private int row;
+	private final int row;
 	
-	private int column;
+	private final int column;
 	
 	private Piece piece;
 	
-	private Board board;
+	private final Board board;
 	
 	public Cell(int row, int column, Board board) {
 		this.row = row;

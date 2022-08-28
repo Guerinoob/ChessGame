@@ -10,7 +10,7 @@ public class Piece {
 	
 	private Cell cell;
 	
-	private Color color;
+	private final Color color;
 		
 	public Piece(PieceType type, Color color, Cell cell) {
 		this.type = type;

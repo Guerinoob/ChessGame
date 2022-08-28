@@ -9,25 +9,21 @@ import chessgame.model.player.Color;
 import chessgame.model.player.Player;
 
 public class Game {
-	private Board board;
+	private final Board board;
 	
-	private Player whitePlayer;
-	private Player blackPlayer;
+	private final Player whitePlayer;
+	private final Player blackPlayer;
 	
-	public Game() {
+	public Game(int time) {
 		board = new Board();
 		
 		final var whitePieces = new ArrayList<Piece>();
 		final var blackPieces = new ArrayList<Piece>();
 		
-		whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 0)));
-		whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 1)));
-		whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 2)));
-		whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 3)));
-		whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 4)));
-		whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 5)));
-		whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 6)));
-		whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 7)));
+		for(int i = 0; i < Board.LENGTH; i++) {
+			whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 0)));
+			blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 0)));
+		}
 		
 		whitePieces.add(new Piece(PieceType.ROOK, Color.WHITE, board.getCell(7, 0)));
 		whitePieces.add(new Piece(PieceType.KNIGHT, Color.WHITE, board.getCell(7, 1)));
@@ -37,15 +33,6 @@ public class Game {
 		whitePieces.add(new Piece(PieceType.BISHOP, Color.WHITE, board.getCell(7, 5)));
 		whitePieces.add(new Piece(PieceType.KNIGHT, Color.WHITE, board.getCell(7, 6)));
 		whitePieces.add(new Piece(PieceType.ROOK, Color.WHITE, board.getCell(7, 7)));
-		
-		blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 0)));
-		blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 1)));
-		blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 2)));
-		blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 3)));
-		blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 4)));
-		blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 5)));
-		blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 6)));
-		blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 7)));
 		
 		blackPieces.add(new Piece(PieceType.ROOK, Color.BLACK, board.getCell(0, 0)));
 		blackPieces.add(new Piece(PieceType.KNIGHT, Color.BLACK, board.getCell(0, 1)));
@@ -58,6 +45,9 @@ public class Game {
 		
 		whitePlayer = new Player(Color.WHITE, whitePieces);
 		blackPlayer = new Player(Color.BLACK, blackPieces);
+		
+		whitePlayer.addTime(time);
+		blackPlayer.addTime(time);
 	}
 	
 	public Board getBoard() {
