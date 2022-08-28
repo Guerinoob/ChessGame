@@ -25,7 +25,7 @@ public class GameController implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		boardGrid = new GridPane();
 		
-		final var game = new Game();
+		final var game = new Game(600);
 
 		for(int i = 0; i < Board.LENGTH; i++) {
 			for(int j = 0; j < Board.LENGTH; j++) {
