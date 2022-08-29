@@ -3,6 +3,7 @@ package chessgame.model.pieces;
 import java.util.List;
 
 import chessgame.model.board.Cell;
+import chessgame.model.board.Move;
 import chessgame.model.player.Color;
 
 public class Piece {
@@ -20,7 +21,7 @@ public class Piece {
 	}
 	
 	public List<Cell> getPossibleMoves() {
-		return type.getMoveStrategy().execute(cell.getBoard());
+		return type.getMoveStrategy().execute(this, cell.getBoard());
 	}
 	
 	public PieceType getType() {
@@ -46,5 +47,11 @@ public class Piece {
 			return;
 		
 		type = newType;
+	}
+	
+	public Move move(Cell destination) {
+		final var move = new Move(cell, destination);
+		move.execute();
+		return move;
 	}
 }

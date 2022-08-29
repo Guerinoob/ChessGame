@@ -14,6 +14,8 @@ public class Game {
 	private final Player whitePlayer;
 	private final Player blackPlayer;
 	
+	private Player turn;
+	
 	public Game(int time) {
 		board = new Board();
 		
@@ -48,6 +50,8 @@ public class Game {
 		
 		whitePlayer.addTime(time);
 		blackPlayer.addTime(time);
+		
+		turn = whitePlayer;
 	}
 	
 	public Board getBoard() {
@@ -60,5 +64,9 @@ public class Game {
 	
 	public Player getBlackPlayer() {
 		return blackPlayer;
+	}
+	
+	public Player getTurn() {
+		return turn;
 	}
 }
