@@ -28,6 +28,8 @@ public class CellPane extends StackPane {
 			return;
 		}
 		
+		piece.setCell(cell);
+		
 		label.setText(""+piece.getType().name().substring(0, 2));
 		getStyleClass().addAll("piece", piece.getColor().name().toLowerCase());
 	}

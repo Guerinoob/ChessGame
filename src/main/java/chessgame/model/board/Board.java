@@ -24,7 +24,6 @@ public class Board {
 		try {
 			return cells[row][column];
 		} catch(ArrayIndexOutOfBoundsException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}

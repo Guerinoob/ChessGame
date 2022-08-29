@@ -84,6 +84,10 @@ public class GameController implements Initializable {
 					final var piece = selectedPane.get().getCell().getPiece();
 					final var move = piece.move(pane.getCell());
 					
+					if(move == null) {
+						return;
+					}
+					
 					selectedPane.get().setPiece(null);
 					pane.setPiece(move.getPieceMoved());
 					selectedPane.set(null);
