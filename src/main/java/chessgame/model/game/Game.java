@@ -21,8 +21,8 @@ public class Game {
 		final var blackPieces = new ArrayList<Piece>();
 		
 		for(int i = 0; i < Board.LENGTH; i++) {
-			whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, 0)));
-			blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, 0)));
+			whitePieces.add(new Piece(PieceType.PAWN, Color.WHITE, board.getCell(6, i)));
+			blackPieces.add(new Piece(PieceType.PAWN, Color.BLACK, board.getCell(1, i)));
 		}
 		
 		whitePieces.add(new Piece(PieceType.ROOK, Color.WHITE, board.getCell(7, 0)));
