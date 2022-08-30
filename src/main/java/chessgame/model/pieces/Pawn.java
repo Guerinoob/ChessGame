@@ -17,6 +17,18 @@ public class Pawn extends Piece {
 		hasMoved = false;
 		canEnPassant = false;
 	}
+	
+	public boolean getHasMoved() {
+		return hasMoved;
+	}
+	
+	public boolean canEnPassant() {
+		return canEnPassant;
+	}
+	
+	public void setEnPassant(boolean value) {
+		canEnPassant = value;
+	}
 
 	@Override
 	public List<Cell> getPossibleMoves() {
@@ -48,15 +60,15 @@ public class Pawn extends Piece {
 		return moves;
 	}
 	
-	private boolean testCell(Cell cell) {
-		if(cell == null)
+	private boolean testCell(Cell dest) {
+		if(dest == null)
 			return false;
 		
-		final var destPiece = cell.getPiece();
-		final var currentColumn = this.cell.getColumn();
+		final var destPiece = dest.getPiece();
+		final var currentColumn = cell.getColumn();
 		
 		//One or 2 cells forward
-		if(cell.getColumn() == currentColumn) {
+		if(dest.getColumn() == currentColumn) {
 			if(destPiece == null)
 				return true;
 			
@@ -67,6 +79,36 @@ public class Pawn extends Piece {
 		if(destPiece != null && !destPiece.getColor().equals(color)) {
 			return true;
 		}
+		else if(canCaptureEnPassant(dest)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean canCaptureEnPassant(Cell dest) {
+		if(dest == null)
+			return false;
+		
+		if(dest.getColumn() == cell.getColumn())
+			return false;
+		
+		if(dest.getPiece() != null)
+			return false;
+		
+		final var board = cell.getBoard();
+		
+		final var adjacent = board.getCell(getCell().getRow(), dest.getColumn());
+		final var adjacentPiece = adjacent.getPiece();
+		
+		if(adjacentPiece == null || adjacentPiece instanceof Pawn == false) {
+			return false;
+		}
+		
+		final var pawn = (Pawn) adjacentPiece;
+		
+		if(pawn.canEnPassant)
+			return true;
 		
 		return false;
 	}
@@ -74,7 +116,12 @@ public class Pawn extends Piece {
 	@Override
 	public Move move(Cell destination) {
 		final var moved = super.move(destination);
+		
 		hasMoved = true;
+		
+		if(moved != null && Math.abs(destination.getRow() - moved.getInitialCell().getRow()) == 2)
+			canEnPassant = true;
+		
 		return moved;
 	}
 

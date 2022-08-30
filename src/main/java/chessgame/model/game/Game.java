@@ -3,6 +3,7 @@ package chessgame.model.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Stream;
 
 import chessgame.model.board.Board;
 import chessgame.model.board.Cell;
@@ -96,6 +97,8 @@ public class Game {
 			return false;
 		
 		moves.add(move);
+		
+		clearEnPassant(piece);
 		switchTurn();
 		
 		notifyObservers();
@@ -108,6 +111,16 @@ public class Game {
 			turn = blackPlayer;
 		else
 			turn = whitePlayer;
+	}
+	
+	private void clearEnPassant(Piece movedPiece) {
+		Stream.concat(whitePlayer.getPieces().stream(), blackPlayer.getPieces().stream()).forEach(piece -> {
+			if(piece instanceof Pawn == false || piece.equals(movedPiece))
+				return;
+			
+			final var pawn = (Pawn) piece;
+			pawn.setEnPassant(false);
+		});
 	}
 	
 	public boolean registerObserver(GameObserver o) {

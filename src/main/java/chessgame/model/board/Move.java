@@ -1,5 +1,6 @@
 package chessgame.model.board;
 
+import chessgame.model.pieces.Pawn;
 import chessgame.model.pieces.Piece;
 
 public class Move {
@@ -10,6 +11,8 @@ public class Move {
 	private Piece pieceMoved;
 	private Piece pieceTaken;
 	
+	private boolean isEnPassant;
+	
 	public Move(Cell initialCell, Cell destinationCell) {
 		this.initialCell = initialCell;
 		this.destinationCell = destinationCell;
@@ -17,7 +20,18 @@ public class Move {
 	
 	public void execute() {
 		pieceMoved = initialCell.getPiece();
-		pieceTaken = destinationCell.setPiece(pieceMoved);
+		
+		if(checkIsEnPassant(destinationCell)) {
+			final var enemyCell = initialCell.getBoard().getCell(initialCell.getRow(), destinationCell.getColumn());
+			pieceTaken = enemyCell.setPiece(null);
+			destinationCell.setPiece(pieceMoved);
+		}
+		else {
+			pieceTaken = destinationCell.setPiece(pieceMoved);
+		}
+		
+		System.out.println(pieceTaken);
+		
 		initialCell.setPiece(null);
 	}
 	
@@ -35,5 +49,18 @@ public class Move {
 	
 	public Piece getPieceTaken() {
 		return pieceTaken;
+	}
+	
+	public boolean getIsEnPassant() {
+		return isEnPassant;
+	}
+	
+	private boolean checkIsEnPassant(Cell destinationCell) {
+		if(pieceMoved instanceof Pawn == false) 
+			return false;
+		
+		final var pawn = (Pawn) pieceMoved;
+		
+		return pawn.canCaptureEnPassant(destinationCell);
 	}
 }
