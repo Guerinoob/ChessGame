@@ -29,7 +29,7 @@ public class King extends Piece {
 				
 				final var cellPiece = cell.getPiece();
 				
-				if(cellPiece != null && cellPiece.getColor().equals(getColor()))
+				if(cellPiece != null && cellPiece.getColor().equals(color))
 					continue;
 				
 				//TODO : check for check

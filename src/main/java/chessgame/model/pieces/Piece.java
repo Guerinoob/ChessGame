@@ -40,7 +40,7 @@ public abstract class Piece {
 	public Move move(Cell destination) {
 		final var possibleMoves = getPossibleMoves();
 		
-		if(!possibleMoves.contains(cell))
+		if(!possibleMoves.contains(destination))
 			return null;
 		
 		final var move = new Move(cell, destination);
