@@ -1,8 +1,8 @@
 package chessgame.model.game;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import chessgame.model.board.Board;
 import chessgame.model.board.Cell;
@@ -26,7 +26,7 @@ public class Game {
 	
 	private Player turn;
 	
-	private List<Move> moves;
+	private Stack<Move> moves;
 	
 	private List<GameObserver> observers;
 	
@@ -66,7 +66,7 @@ public class Game {
 		blackPlayer.addTime(time);
 		
 		turn = whitePlayer;
-		moves = new LinkedList<>();
+		moves = new Stack<>();
 		observers = new ArrayList<>();
 	}
 	
