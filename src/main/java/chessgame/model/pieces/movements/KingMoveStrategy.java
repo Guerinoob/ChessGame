@@ -34,7 +34,6 @@ public class KingMoveStrategy implements MoveStrategy {
 				moves.add(cell);
 			}
 		}
-		System.out.println(moves.size());
 		return moves;
 	}
 

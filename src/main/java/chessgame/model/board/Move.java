@@ -18,6 +18,7 @@ public class Move {
 	public void execute() {
 		pieceMoved = initialCell.getPiece();
 		pieceTaken = destinationCell.setPiece(pieceMoved);
+		initialCell.setPiece(null);
 	}
 	
 	public Cell getInitialCell() {

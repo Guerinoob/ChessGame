@@ -1,8 +1,13 @@
 package chessgame.model.game;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import chessgame.model.board.Board;
+import chessgame.model.board.Cell;
+import chessgame.model.board.Move;
+import chessgame.model.observer.GameObserver;
 import chessgame.model.pieces.Piece;
 import chessgame.model.pieces.PieceType;
 import chessgame.model.player.Color;
@@ -15,6 +20,10 @@ public class Game {
 	private final Player blackPlayer;
 	
 	private Player turn;
+	
+	private List<Move> moves;
+	
+	private List<GameObserver> observers;
 	
 	public Game(int time) {
 		board = new Board();
@@ -52,6 +61,8 @@ public class Game {
 		blackPlayer.addTime(time);
 		
 		turn = whitePlayer;
+		moves = new LinkedList<>();
+		observers = new ArrayList<>();
 	}
 	
 	public Board getBoard() {
@@ -68,5 +79,41 @@ public class Game {
 	
 	public Player getTurn() {
 		return turn;
+	}
+	
+	public boolean makeMove(Piece piece, Cell destination) {
+		if(!piece.getColor().equals(turn.getColor()))
+			return false;
+		
+		final var move = piece.move(destination);
+		
+		if(move == null)
+			return false;
+		
+		moves.add(move);
+		switchTurn();
+		
+		notifyObservers();
+		
+		return true;
+	}
+	
+	public void switchTurn() {
+		if(turn.equals(whitePlayer))
+			turn = blackPlayer;
+		else
+			turn = whitePlayer;
+	}
+	
+	public boolean registerObserver(GameObserver o) {
+		return observers.add(o);
+	}
+	
+	public boolean removeObserver(GameObserver o) {
+		return observers.remove(o);
+	}
+	
+	public void notifyObservers() {
+		observers.forEach(o -> o.update(this));
 	}
 }
