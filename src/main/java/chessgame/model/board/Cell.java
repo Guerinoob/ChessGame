@@ -41,6 +41,10 @@ public class Cell {
 	 */
 	public Piece setPiece(Piece piece) {
 		final var old = this.piece;
+
+		if(piece != null)
+			piece.setCell(this);
+		
 		this.piece = piece;
 		
 		return old;

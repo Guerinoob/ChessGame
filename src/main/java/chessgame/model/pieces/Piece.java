@@ -41,11 +41,8 @@ public class Piece {
 	 * @param piece The new piece
 	 * @return The previous piece
 	 */
-	public Piece setCell(Cell cell) {
-		final var oldCell = this.cell;
+	public void setCell(Cell cell) {
 		this.cell = cell;
-		oldCell.setPiece(null);
-		return cell.setPiece(this);
 	}
 	
 	public void promote(PieceType newType) {
