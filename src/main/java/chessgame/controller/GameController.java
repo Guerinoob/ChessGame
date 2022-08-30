@@ -1,6 +1,7 @@
 package chessgame.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import chessgame.display.CellPane;
@@ -72,6 +73,8 @@ public class GameController implements Initializable, GameObserver {
 			if(newV != null) {
 				newV.getStyleClass().add("selected");
 			}
+			
+			markMovesPossible();
 		});
 	}
 	
@@ -101,6 +104,24 @@ public class GameController implements Initializable, GameObserver {
 		boardGrid.getChildren().forEach(node -> {
 			final var cellPane = (CellPane) node;
 			cellPane.setPiece(cellPane.getCell().getPiece());
+		});
+	}
+	
+	public void markMovesPossible() {
+		final var selected = selectedPane.get();
+		
+		final var moves = selected != null ? selected.getCell().getPiece().getPossibleMoves() : List.of();
+		
+		boardGrid.getChildren().forEach(node -> {
+			final var cellPane = (CellPane) node;
+			final var cell = cellPane.getCell();
+			
+			if(moves.contains(cell)) {
+				cellPane.getStyleClass().add("canMove");
+			}
+			else {
+				cellPane.getStyleClass().remove("canMove");
+			}
 		});
 	}
 }
