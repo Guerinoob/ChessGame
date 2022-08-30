@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chessgame.model.board.Cell;
+import chessgame.model.board.Move;
 import chessgame.model.player.Color;
 
 public class Pawn extends Piece {
@@ -31,26 +32,50 @@ public class Pawn extends Piece {
 		for(int i = currentColumn - 1; i <= currentColumn + 1; i++) {
 			final var dest = board.getCell(nextRow, i);
 			
-			if(dest == null)
-				continue;
-			
-			final var destPiece = dest.getPiece();
-			
-			if(i == currentColumn) {
-				if(destPiece == null)
-					moves.add(dest);
-				
-				continue;
-			}
-			
-			if(destPiece != null && !destPiece.getColor().equals(color)) {
+			if(testCell(dest))
 				moves.add(dest);
-				continue;
-			}
-			
 		}
+		
+		//Move 2 cells forward
+		if(hasMoved)
+			return moves;
+		
+		final var dest = board.getCell(nextRow + (1 * direction), currentColumn);
+		
+		if(testCell(dest))
+			moves.add(dest);
 
 		return moves;
+	}
+	
+	private boolean testCell(Cell cell) {
+		if(cell == null)
+			return false;
+		
+		final var destPiece = cell.getPiece();
+		final var currentColumn = this.cell.getColumn();
+		
+		//One or 2 cells forward
+		if(cell.getColumn() == currentColumn) {
+			if(destPiece == null)
+				return true;
+			
+			return false;
+		}
+		
+		//Capture enemy piece
+		if(destPiece != null && !destPiece.getColor().equals(color)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public Move move(Cell destination) {
+		final var moved = super.move(destination);
+		hasMoved = true;
+		return moved;
 	}
 
 }
