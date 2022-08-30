@@ -1,19 +1,22 @@
-package chessgame.model.pieces.movements;
+package chessgame.model.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chessgame.model.board.Board;
 import chessgame.model.board.Cell;
-import chessgame.model.pieces.Piece;
+import chessgame.model.player.Color;
 
-public class KingMoveStrategy implements MoveStrategy {
+public class King extends Piece {
+
+	public King(Color color, Cell cell) {
+		super(color, cell);
+	}
 
 	@Override
-	public List<Cell> execute(Piece piece, Board board) {
-		final var currentCell = piece.getCell();
-		final var currentRow = currentCell.getRow();
-		final var currentColumn = currentCell.getColumn();
+	public List<Cell> getPossibleMoves() {
+		final var currentRow = cell.getRow();
+		final var currentColumn = cell.getColumn();
+		final var board = cell.getBoard();
 		
 		final var moves = new ArrayList<Cell>();
 		
@@ -26,7 +29,7 @@ public class KingMoveStrategy implements MoveStrategy {
 				
 				final var cellPiece = cell.getPiece();
 				
-				if(cellPiece != null && cellPiece.getColor().equals(piece.getColor()))
+				if(cellPiece != null && cellPiece.getColor().equals(getColor()))
 					continue;
 				
 				//TODO : check for check

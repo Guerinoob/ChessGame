@@ -6,28 +6,20 @@ import chessgame.model.board.Cell;
 import chessgame.model.board.Move;
 import chessgame.model.player.Color;
 
-public class Piece {
-	private PieceType type;
+public abstract class Piece {
 	
-	private Cell cell;
+	protected Cell cell;
 	
-	private final Color color;
+	protected final Color color;
 		
-	public Piece(PieceType type, Color color, Cell cell) {
-		this.type = type;
+	public Piece(Color color, Cell cell) {
 		this.cell = cell;
 		this.color = color;
 		cell.setPiece(this);
 	}
 	
-	public List<Cell> getPossibleMoves() {
-		return type.getMoveStrategy().execute(this, cell.getBoard());
-	}
-	
-	public PieceType getType() {
-		return type;
-	}
-	
+	abstract public List<Cell> getPossibleMoves();
+
 	public Color getColor() {
 		return color;
 	}
@@ -44,14 +36,7 @@ public class Piece {
 	public void setCell(Cell cell) {
 		this.cell = cell;
 	}
-	
-	public void promote(PieceType newType) {
-		if(!type.equals(PieceType.PAWN))
-			return;
-		
-		type = newType;
-	}
-	
+
 	public Move move(Cell destination) {
 		final var possibleMoves = getPossibleMoves();
 		

@@ -27,8 +27,8 @@ public class CellPane extends StackPane {
 			getStyleClass().clear();
 			return;
 		}
-				
-		label.setText(""+piece.getType().name().substring(0, 2));
+		
+		label.setText(""+piece.getClass().getSimpleName().substring(0, 2));
 		getStyleClass().addAll("piece", piece.getColor().name().toLowerCase());
 	}
 
