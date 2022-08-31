@@ -29,9 +29,7 @@ public class Move {
 		else {
 			pieceTaken = destinationCell.setPiece(pieceMoved);
 		}
-		
-		System.out.println(pieceTaken);
-		
+				
 		initialCell.setPiece(null);
 	}
 	
