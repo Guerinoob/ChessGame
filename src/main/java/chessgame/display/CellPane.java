@@ -22,9 +22,10 @@ public class CellPane extends StackPane {
 	}
 	
 	public void setPiece(Piece piece) {
+		getStyleClass().clear();
+		
 		if(piece == null) {
 			label.setText("");
-			getStyleClass().clear();
 			return;
 		}
 		
