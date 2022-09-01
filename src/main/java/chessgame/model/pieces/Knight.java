@@ -1,5 +1,6 @@
 package chessgame.model.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import chessgame.model.board.Cell;
@@ -13,8 +14,37 @@ public class Knight extends Piece {
 
 	@Override
 	public List<Cell> getPossibleMoves() {
-		// TODO Auto-generated method stub
-		return null;
+		final var currentRow = cell.getRow();
+		final var currentColumn = cell.getColumn();
+		final var board = cell.getBoard();
+		
+		final var moves = new ArrayList<Cell>();
+		
+		for(int i = currentRow - 2; i <= currentRow + 2; i++) {
+			for(int j = currentColumn - 2; j <= currentColumn + 2; j++) {
+				final var rowDiff = Math.abs(currentRow - i);
+				final var columnDiff = Math.abs(currentColumn - j);
+				
+				if(rowDiff + columnDiff != 3)
+					continue;
+				
+				final var dest = board.getCell(i, j);
+				
+				if(dest == null)
+					continue;
+				
+				final var piece = dest.getPiece();
+				
+				if(piece != null && piece.getColor().equals(color))
+					continue;
+				
+				moves.add(dest);
+			}
+		}
+		
+		System.out.println(moves.size());
+		
+		return moves;
 	}
 
 }
