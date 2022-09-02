@@ -29,7 +29,7 @@ public class Bishop extends Piece {
 			
 			moves.add(dest);
 			
-			if(isOccupied(dest))
+			if(dest.isOccupied())
 				break;
 		}
 		
@@ -41,7 +41,7 @@ public class Bishop extends Piece {
 			
 			moves.add(dest);
 			
-			if(isOccupied(dest))
+			if(dest.isOccupied())
 				break;
 		}
 		
@@ -53,7 +53,7 @@ public class Bishop extends Piece {
 			
 			moves.add(dest);
 			
-			if(isOccupied(dest))
+			if(dest.isOccupied())
 				break;
 		}
 		
@@ -65,27 +65,15 @@ public class Bishop extends Piece {
 			
 			moves.add(dest);
 			
-			if(isOccupied(dest))
+			if(dest.isOccupied())
 				break;
 		}
 		
 		return moves;
 	}
 	
-	private boolean checkCell(Cell cell) {
-		if(cell == null)
-			return false;
-		
-		final var piece = cell.getPiece();
-		
-		if(piece != null && piece.getColor().equals(color))
-			return false;
-		
-		return true;
-	}
-	
-	private boolean isOccupied(Cell cell) {
-		return cell.getPiece() != null;
+	private boolean checkCell(Cell cell) {		
+		return cell != null && !isOccupiedByAlly(cell);
 	}
 
 }

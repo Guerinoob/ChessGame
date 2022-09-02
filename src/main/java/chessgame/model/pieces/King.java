@@ -26,10 +26,8 @@ public class King extends Piece {
 				
 				if(cell == null) 
 					continue;
-				
-				final var cellPiece = cell.getPiece();
-				
-				if(cellPiece != null && cellPiece.getColor().equals(color))
+								
+				if(isOccupiedByAlly(cell))
 					continue;
 				
 				//TODO : check for check

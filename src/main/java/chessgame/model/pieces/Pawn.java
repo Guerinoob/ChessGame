@@ -76,7 +76,7 @@ public class Pawn extends Piece {
 		}
 		
 		//Capture enemy piece
-		if(destPiece != null && !destPiece.getColor().equals(color)) {
+		if(isOccupiedByEnnemy(dest)) {
 			return true;
 		}
 		else if(canCaptureEnPassant(dest)) {

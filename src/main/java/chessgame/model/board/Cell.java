@@ -49,4 +49,8 @@ public class Cell {
 		
 		return old;
 	}
+	
+	public boolean isOccupied() {
+		return piece != null;
+	}
 }

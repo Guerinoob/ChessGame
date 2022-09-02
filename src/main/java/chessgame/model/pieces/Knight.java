@@ -32,10 +32,8 @@ public class Knight extends Piece {
 				
 				if(dest == null)
 					continue;
-				
-				final var piece = dest.getPiece();
-				
-				if(piece != null && piece.getColor().equals(color))
+								
+				if(isOccupiedByAlly(dest))
 					continue;
 				
 				moves.add(dest);

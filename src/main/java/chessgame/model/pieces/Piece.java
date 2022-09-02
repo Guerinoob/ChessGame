@@ -47,4 +47,12 @@ public abstract class Piece {
 		move.execute();
 		return move;
 	}
+	
+	public boolean isOccupiedByAlly(Cell cell) {	
+		return cell.isOccupied() && cell.getPiece().getColor().equals(color);
+	}
+	
+	public boolean isOccupiedByEnnemy(Cell cell) {		
+		return cell.isOccupied() && !cell.getPiece().getColor().equals(color);
+	}
 }
