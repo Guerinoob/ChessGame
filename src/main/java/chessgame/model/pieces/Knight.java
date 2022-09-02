@@ -41,9 +41,7 @@ public class Knight extends Piece {
 				moves.add(dest);
 			}
 		}
-		
-		System.out.println(moves.size());
-		
+				
 		return moves;
 	}
 
