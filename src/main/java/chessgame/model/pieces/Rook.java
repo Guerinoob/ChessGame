@@ -3,6 +3,7 @@ package chessgame.model.pieces;
 import java.util.List;
 
 import chessgame.model.board.Cell;
+import chessgame.model.movements.RookDirectionalStrategy;
 import chessgame.model.player.Color;
 
 public class Rook extends Piece {
@@ -13,8 +14,7 @@ public class Rook extends Piece {
 
 	@Override
 	public List<Cell> getPossibleMoves() {
-		// TODO Auto-generated method stub
-		return null;
+		return new RookDirectionalStrategy(this).getPossibleMoves();
 	}
 
 }
