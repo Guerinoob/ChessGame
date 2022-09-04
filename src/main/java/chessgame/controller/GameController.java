@@ -82,19 +82,30 @@ public class GameController implements Initializable, GameObserver {
 		pane.addEventHandler(MouseEvent.MOUSE_CLICKED, evt -> {
 			//Left click
 			if(MouseButton.PRIMARY.equals(evt.getButton())) {
-				if(selectedPane.get() == null) {
-					if(pane.getCell().getPiece() != null) {
+				final var piece = pane.getCell().getPiece();
+				final var selected = selectedPane.get();
+				
+				if(selected == null) {
+					if(piece != null && piece.getColor().equals(game.getTurn().getColor())) {
 						selectedPane.set(pane);
 					}
-				}
-				else {
-					final var piece = selectedPane.get().getCell().getPiece();
-					final var moved = game.makeMove(piece, pane.getCell());
 					
-					if(moved) {
-						selectedPane.set(null);
-					}
+					return;
 				}
+				
+				final var selectedPiece = selected.getCell().getPiece();
+				
+				if(piece != null && selectedPiece.getColor().equals(piece.getColor())) {
+					selectedPane.set(pane);
+					return;
+				}
+				
+				final var moved = game.makeMove(selectedPiece, pane.getCell());
+				
+				if(moved) {
+					selectedPane.set(null);
+				}
+				
 			}
 		});
 	}
