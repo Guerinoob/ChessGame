@@ -16,7 +16,7 @@ public class Queen extends Piece {
 
 	@Override
 	public List<Cell> getPossibleMoves() {
-return new DirectionalStrategy(this) {
+		return new DirectionalStrategy(this) {
 			
 			@Override
 			public List<Cell> getPossibleMoves() {
