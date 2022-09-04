@@ -105,9 +105,6 @@ public class Game {
 		clearEnPassant(piece);
 		switchTurn();
 		
-		System.out.println(checkmateService.checked(this));
-		System.out.println(checkmateService.checkedMate(this));
-		
 		notifyObservers();
 		
 		return true;
