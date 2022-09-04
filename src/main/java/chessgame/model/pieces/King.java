@@ -24,13 +24,8 @@ public class King extends Piece {
 			for(int j = currentColumn - 1; j <= currentColumn + 1; j++) {
 				final var cell = board.getCell(i, j);
 				
-				if(cell == null) 
+				if(cell == null || isOccupiedByAlly(cell)) 
 					continue;
-								
-				if(isOccupiedByAlly(cell))
-					continue;
-				
-				//TODO : check for check
 				
 				moves.add(cell);
 			}

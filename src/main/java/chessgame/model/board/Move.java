@@ -36,6 +36,11 @@ public class Move {
 		initialCell.setPiece(null);
 	}
 	
+	public void undo() {
+		initialCell.setPiece(pieceMoved);
+		destinationCell.setPiece(pieceTaken);
+	}
+	
 	public Cell getInitialCell() {
 		return initialCell;
 	}

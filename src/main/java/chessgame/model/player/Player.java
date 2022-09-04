@@ -1,6 +1,7 @@
 package chessgame.model.player;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import chessgame.model.pieces.Piece;
 
@@ -22,6 +23,10 @@ public class Player {
 	
 	public List<Piece> getPieces() {
 		return pieces;
+	}
+	
+	public List<Piece> getAlivePieces() {
+		return pieces.stream().filter(piece -> piece.getCell() != null).collect(Collectors.toList());
 	}
 	
 	public int getTimeLeft() {

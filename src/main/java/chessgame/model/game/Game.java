@@ -18,6 +18,8 @@ import chessgame.model.pieces.Queen;
 import chessgame.model.pieces.Rook;
 import chessgame.model.player.Color;
 import chessgame.model.player.Player;
+import chessgame.model.service.CheckmateService;
+import chessgame.model.service.ServiceManager;
 
 public class Game {
 	private final Board board;
@@ -31,8 +33,10 @@ public class Game {
 	
 	private List<GameObserver> observers;
 	
+	private final CheckmateService checkmateService = ServiceManager.getInstance(CheckmateService.class);
+	
 	public Game(int time) {
-		board = new Board();
+		board = new Board(this);
 		
 		final var whitePieces = new ArrayList<Piece>();
 		final var blackPieces = new ArrayList<Piece>();
@@ -100,6 +104,9 @@ public class Game {
 		
 		clearEnPassant(piece);
 		switchTurn();
+		
+		System.out.println(checkmateService.checked(this));
+		System.out.println(checkmateService.checkedMate(this));
 		
 		notifyObservers();
 		
