@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import chessgame.display.BoardGrid;
 import chessgame.display.CellPane;
-import chessgame.model.board.Board;
 import chessgame.model.game.Game;
 import chessgame.model.observer.GameObserver;
 import javafx.beans.property.ObjectProperty;
@@ -15,17 +15,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 
 public class GameController implements Initializable, GameObserver {
 	@FXML
 	private StackPane boardContainer;
 	
-	private GridPane boardGrid;
+	private BoardGrid boardGrid;
 	
 	private ObjectProperty<CellPane> selectedPane;
 	
@@ -33,34 +29,15 @@ public class GameController implements Initializable, GameObserver {
 	
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		boardGrid = new GridPane();
 		
 		game = new Game(600);
 		game.registerObserver(this);
-
-		for(int i = 0; i < Board.LENGTH; i++) {
-			for(int j = 0; j < Board.LENGTH; j++) {
-				final var pane = new CellPane(game.getBoard().getCell(i, j));
-								
-				if((i + j) % 2 == 0)
-					pane.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-				else
-					pane.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-				
-				final var piece = game.getBoard().getCell(i, j).getPiece();
-								
-				pane.setPiece(piece);
-				
-				pane.setPrefSize(75, 75);
-				
-				setListeners(pane);
-				
-				boardGrid.add(pane, j, i);
-			}
-		}
+		
+		boardGrid = new BoardGrid(game.getBoard());
 		
 		boardGrid.setPrefSize(600, 600);
 		boardGrid.setAlignment(Pos.CENTER);
+		boardGrid.getChildren().forEach(cellPane -> setListeners((CellPane) cellPane));
 				
 		boardContainer.getChildren().add(boardGrid);
 		
@@ -112,10 +89,19 @@ public class GameController implements Initializable, GameObserver {
 
 	@Override
 	public void update(Game game) {
-		boardGrid.getChildren().forEach(node -> {
-			final var cellPane = (CellPane) node;
-			cellPane.setPiece(cellPane.getCell().getPiece());
-		});
+		final var move = game.getMoves().peek();
+		
+		final var initial = move.getInitialCell();
+		final var destination = move.getDestinationCell();
+		
+		boardGrid.getCellPane(initial.getRow(), initial.getColumn()).setPiece(null);
+		boardGrid.getCellPane(destination.getRow(), destination.getColumn()).setPiece(move.getPieceMoved());
+		
+		if(move.getIsEnPassant()) {
+			final var enPassantCell = move.getEnPassantCell();
+			
+			boardGrid.getCellPane(enPassantCell.getRow(), enPassantCell.getColumn()).setPiece(null);
+		}
 	}
 	
 	public void markMovesPossible() {

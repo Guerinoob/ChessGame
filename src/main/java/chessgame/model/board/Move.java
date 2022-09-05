@@ -7,6 +7,7 @@ public class Move {
 	
 	private Cell initialCell;
 	private Cell destinationCell;
+	private Cell enPassantCell;
 	
 	private Piece pieceMoved;
 	private Piece pieceTaken;
@@ -16,14 +17,16 @@ public class Move {
 	public Move(Cell initialCell, Cell destinationCell) {
 		this.initialCell = initialCell;
 		this.destinationCell = destinationCell;
+		isEnPassant = false;
 	}
 	
 	public void execute() {
 		pieceMoved = initialCell.getPiece();
 		
 		if(checkIsEnPassant(destinationCell)) {
-			final var enemyCell = initialCell.getBoard().getCell(initialCell.getRow(), destinationCell.getColumn());
-			pieceTaken = enemyCell.setPiece(null);
+			isEnPassant = true;
+			enPassantCell = initialCell.getBoard().getCell(initialCell.getRow(), destinationCell.getColumn());
+			pieceTaken = enPassantCell.setPiece(null);
 			destinationCell.setPiece(pieceMoved);
 		}
 		else {
@@ -38,15 +41,26 @@ public class Move {
 	
 	public void undo() {
 		initialCell.setPiece(pieceMoved);
-		destinationCell.setPiece(pieceTaken);
+		
+		if(isEnPassant) {
+			destinationCell.setPiece(null);
+			enPassantCell.setPiece(pieceTaken);
+		}
+		else {
+			destinationCell.setPiece(pieceTaken);
+		}
 	}
 	
 	public Cell getInitialCell() {
 		return initialCell;
 	}
 
-	public Cell destinationCell() {
+	public Cell getDestinationCell() {
 		return destinationCell;
+	}
+	
+	public Cell getEnPassantCell() {
+		return enPassantCell;
 	}
 	
 	public Piece getPieceMoved() {

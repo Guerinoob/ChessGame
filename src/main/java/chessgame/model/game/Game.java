@@ -91,6 +91,10 @@ public class Game {
 		return turn;
 	}
 	
+	public Stack<Move> getMoves() {
+		return moves;
+	}
+	
 	public boolean makeMove(Piece piece, Cell destination) {
 		if(!piece.getColor().equals(turn.getColor()))
 			return false;
