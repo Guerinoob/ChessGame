@@ -1,31 +1,29 @@
 package chessgame.model.direction;
 
-public class Direction {
+public enum Direction {
+	UP_LEFT(-1, -1),
+	UP(-1, 0),
+	UP_RIGHT(-1, 1),
+	LEFT(0, -1),
+	RIGHT(0, 1),
+	BOTTOM_LEFT(1, -1),
+	BOTTOM(1, 0),
+	BOTTOM_RIGHT(1, 1);
 	
-	private EDirection direction;
+	private int rowOffset;
 	
-	private boolean stop;
-	
-	public Direction(EDirection direction) {
-		this.direction = direction;
-		this.stop = false;
+	private int columnOffset;
+			
+	private Direction(int rowOffset, int columnOffset) {
+		this.rowOffset = rowOffset;
+		this.columnOffset = columnOffset;
 	}
 	
 	public int getRowOffset() {
-		return direction.getRowOffset();
+		return rowOffset;
 	}
 	
 	public int getColumnOffset() {
-		return direction.getColumnOffset();
+		return columnOffset;
 	}
-	
-	public boolean getStop() {
-		return stop;
-	}
-	
-	public void setStop(boolean stop) {
-		this.stop = stop;
-	}
-	
 }
-
