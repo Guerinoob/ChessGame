@@ -1,7 +1,8 @@
 package chessgame.model.observer;
 
-import chessgame.model.game.Game;
+import chessgame.model.player.Player;
 
 public interface GameObserver {
-	public void update(Game game);
+	public void updateBoard();
+	public void updateCheckmate(Player winner);
 }

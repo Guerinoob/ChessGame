@@ -8,6 +8,7 @@ import chessgame.display.BoardGrid;
 import chessgame.display.CellPane;
 import chessgame.model.game.Game;
 import chessgame.model.observer.GameObserver;
+import chessgame.model.player.Player;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -88,7 +89,7 @@ public class GameController implements Initializable, GameObserver {
 	}
 
 	@Override
-	public void update(Game game) {
+	public void updateBoard() {
 		final var move = game.getMoves().peek();
 		
 		final var initial = move.getInitialCell();
@@ -102,6 +103,11 @@ public class GameController implements Initializable, GameObserver {
 			
 			boardGrid.getCellPane(enPassantCell.getRow(), enPassantCell.getColumn()).setPiece(null);
 		}
+	}
+	
+	@Override
+	public void updateCheckmate(Player winner) {
+		
 	}
 	
 	public void markMovesPossible() {

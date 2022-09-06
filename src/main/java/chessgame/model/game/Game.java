@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import chessgame.model.board.Board;
 import chessgame.model.board.Cell;
 import chessgame.model.board.Move;
+import chessgame.model.observer.GameObservee;
 import chessgame.model.observer.GameObserver;
 import chessgame.model.pieces.Bishop;
 import chessgame.model.pieces.King;
@@ -21,7 +22,7 @@ import chessgame.model.player.Player;
 import chessgame.model.service.CheckmateService;
 import chessgame.model.service.ServiceManager;
 
-public class Game {
+public class Game implements GameObservee {
 	private final Board board;
 	
 	private final Player whitePlayer;
@@ -109,7 +110,7 @@ public class Game {
 		clearEnPassant(piece);
 		switchTurn();
 		
-		notifyObservers();
+		notifyBoard();
 		
 		return true;
 	}
@@ -139,7 +140,13 @@ public class Game {
 		return observers.remove(o);
 	}
 	
-	public void notifyObservers() {
-		observers.forEach(o -> o.update(this));
+	@Override
+	public void notifyBoard() {
+		observers.forEach(GameObserver::updateBoard);
+	}
+	
+	@Override
+	public void notifyCheckmate(Player winner) {
+		observers.forEach(o -> o.updateCheckmate(winner));
 	}
 }
