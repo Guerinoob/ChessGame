@@ -1,6 +1,5 @@
 package chessgame.model.pieces;
 
-import java.util.List;
 import java.util.Set;
 
 import chessgame.model.board.Cell;
@@ -9,13 +8,15 @@ import chessgame.model.movements.DirectionalStrategy;
 import chessgame.model.movements.IDirectionalStrategy;
 import chessgame.model.player.Color;
 
-public class Bishop extends Piece {
+public class Bishop extends DirectionalPiece {
 	
-	private IDirectionalStrategy directionalStrategy;
-
 	public Bishop(Color color, Cell cell) {
 		super(color, cell);
-		directionalStrategy = new DirectionalStrategy(this) {
+	}
+
+	@Override
+	public IDirectionalStrategy getDirectionalStrategy() {
+		return new DirectionalStrategy(this) {
 			
 			@Override
 			public Set<Direction> getDirections() {
@@ -27,11 +28,6 @@ public class Bishop extends Piece {
 				);
 			}
 		};
-	}
-
-	@Override
-	public List<Cell> getPossibleMoves() {				
-		return directionalStrategy.getPossibleMoves();
 	}
 
 }
