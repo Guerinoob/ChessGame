@@ -119,7 +119,7 @@ public class GameController implements Initializable, GameObserver {
 			final var cellPane = (CellPane) node;
 			final var cell = cellPane.getCell();
 			
-			if(moves.contains(cell)) {
+			if(moves.contains(cell) && !selected.getCell().getPiece().moveImpliesCheck(cell)) {
 				cellPane.getStyleClass().add("canMove");
 			}
 			else {

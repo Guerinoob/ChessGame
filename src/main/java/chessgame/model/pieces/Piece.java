@@ -4,6 +4,7 @@ import java.util.List;
 
 import chessgame.model.board.Cell;
 import chessgame.model.board.Move;
+import chessgame.model.game.Game;
 import chessgame.model.player.Color;
 import chessgame.model.service.CheckmateService;
 import chessgame.model.service.ServiceManager;
@@ -32,11 +33,10 @@ public abstract class Piece {
 		return cell;
 	}
 	
-	/**
-	 * Sets a piece and returns the previous piece on the cell
-	 * @param piece The new piece
-	 * @return The previous piece
-	 */
+	public Game getGame() {
+		return cell.getBoard().getGame();
+	}
+	
 	public void setCell(Cell cell) {
 		this.cell = cell;
 	}
@@ -69,5 +69,16 @@ public abstract class Piece {
 	
 	public boolean isOccupiedByEnnemy(Cell cell) {		
 		return cell.isOccupied() && !cell.getPiece().getColor().equals(color);
+	}
+	
+	public boolean isThreathened() {
+		final var enemy = color.equals(Color.WHITE) ? getGame().getBlackPlayer() : getGame().getWhitePlayer();
+		
+		for(final var piece : enemy.getAlivePieces()) {
+			if(piece.getPossibleMoves().contains(cell))
+				return true;
+		}
+		
+		return false;
 	}
 }

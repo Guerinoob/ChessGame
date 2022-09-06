@@ -30,21 +30,8 @@ public class CheckmateService implements Service {
 	
 	private boolean isChecked(Color color, Game game) {
 		final var player = color.equals(Color.WHITE) ? game.getWhitePlayer() : game.getBlackPlayer();
-		final var enemy = color.equals(Color.WHITE) ? game.getBlackPlayer() : game.getWhitePlayer();
-		
-		final var king = getKing(player);
-		
-		if(king == null)
-			return false;
-				
-		for(final var piece : enemy.getAlivePieces()) {
-			for(final var cell : piece.getPossibleMoves()) {
-				if(king.equals(cell.getPiece()))
-					return true;
-			}
-		}
-		
-		return false;
+
+		return getKing(player).isThreathened();
 	}
 	
 	private boolean isCheckedMate(Color color, Game game) {
@@ -52,12 +39,7 @@ public class CheckmateService implements Service {
 			return false;
 		
 		final var player = color.equals(Color.WHITE) ? game.getWhitePlayer() : game.getBlackPlayer();
-		
-		final var king = getKing(player);
-		
-		if(king == null)
-			return false;
-		
+				
 		for(final var piece : player.getAlivePieces()) {
 			for(final var cell : piece.getPossibleMoves()) {
 				if(!piece.moveImpliesCheck(cell))
