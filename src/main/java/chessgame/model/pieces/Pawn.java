@@ -115,14 +115,16 @@ public class Pawn extends Piece {
 	
 	@Override
 	public Move move(Cell destination) {
-		final var moved = super.move(destination);
+		final var move = super.move(destination);
 		
-		hasMoved = true;
-		
-		if(moved != null && Math.abs(destination.getRow() - moved.getInitialCell().getRow()) == 2)
-			canEnPassant = true;
-		
-		return moved;
+		if(move != null) {
+			hasMoved = true;
+			
+			if(Math.abs(destination.getRow() - move.getInitialCell().getRow()) == 2)
+				canEnPassant = true;
+		}
+	
+		return move;
 	}
 
 }
