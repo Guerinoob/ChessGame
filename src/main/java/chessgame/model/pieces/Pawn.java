@@ -49,7 +49,7 @@ public class Pawn extends Piece {
 		}
 		
 		//Move 2 cells forward
-		if(hasMoved)
+		if(hasMoved || board.getCell(nextRow, currentColumn).isOccupied())
 			return moves;
 		
 		final var dest = board.getCell(nextRow + (1 * direction), currentColumn);
