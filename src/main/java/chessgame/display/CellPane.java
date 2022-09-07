@@ -32,5 +32,16 @@ public class CellPane extends StackPane {
 		label.setText(""+piece.getClass().getSimpleName().substring(0, 2));
 		getStyleClass().addAll("piece", piece.getColor().name().toLowerCase());
 	}
+	
+	public boolean addClass(String classname) {
+		if(getStyleClass().contains(classname))
+			return false;
+		
+		return getStyleClass().add(classname);
+	}
+	
+	public boolean removeClass(String classname) {
+		return getStyleClass().remove(classname);
+	}
 
 }
